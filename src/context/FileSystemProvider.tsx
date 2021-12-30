@@ -1,13 +1,14 @@
 import { createContext, useReducer } from "react";
 
-import IFileSystemContext from "context/interfaces/IFileSystemContext";
-import IContext from "context/interfaces/IContext";
-import fileSystemReducer from "context/fileSystemReducer";
+import IFileSystemContext from "./interfaces/IFileSystemContext";
+import IContext from "./interfaces/IContext";
+import fileSystemReducer from "./fileSystemReducer";
 
-export const FileSytemContext = createContext<IFileSystemContext>({} as IFileSystemContext);
+export const FileSystemContext = createContext<IFileSystemContext>({} as IFileSystemContext);
 
 const FileSystemProvider = ({ children }: IContext) => {
 	const [state, dispatch] = useReducer(fileSystemReducer, {
+		currentFilePath: "",
 		filepaths: [
 			"marvel/black_widow/bw.png",
 			"marvel/drdoom/the-doctor.png",
@@ -20,12 +21,26 @@ const FileSystemProvider = ({ children }: IContext) => {
 		],
 	});
 
+	const getCurrentLayerOfMapsAndFiles = (filepaths: string[]): string[] =>
+		[
+			...new Set(
+				filepaths.map((filepath) => {
+					if (filepath.includes("/")) {
+						return filepath.split("/").shift();
+					} else {
+						return filepath;
+					}
+				})
+			),
+		] as string[];
+
 	const values = {
 		state,
 		dispatch,
+		getCurrentLayerOfMapsAndFiles,
 	};
 
-	return <FileSytemContext.Provider value={values}>{children}</FileSytemContext.Provider>;
+	return <FileSystemContext.Provider value={values}>{children}</FileSystemContext.Provider>;
 };
 
 export default FileSystemProvider;
