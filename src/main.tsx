@@ -8,10 +8,10 @@ import App from "./App";
 import "./assets/scss/main.scss";
 
 ReactDOM.render(
-	<React.StrictMode>
-		<FileSystemProvider>
-			<App />
-		</FileSystemProvider>
-	</React.StrictMode>,
-	document.getElementById("root")
+  <React.StrictMode>
+    <FileSystemProvider>
+      <App />
+    </FileSystemProvider>
+  </React.StrictMode>,
+  document.getElementById("root")
 );

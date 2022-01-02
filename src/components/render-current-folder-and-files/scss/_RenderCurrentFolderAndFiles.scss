@@ -1,0 +1,8 @@
+.render-current-folders-and-files {
+	display: flex;
+	flex-wrap: wrap;
+
+	& > * {
+		margin-inline: 1rem;
+	}
+}

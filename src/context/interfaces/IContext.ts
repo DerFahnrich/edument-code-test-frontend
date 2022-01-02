@@ -1,3 +1,3 @@
 export default interface IContext {
-	children: React.ReactNode;
+  children: React.ReactNode;
 }

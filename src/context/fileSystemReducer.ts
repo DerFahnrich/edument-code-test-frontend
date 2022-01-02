@@ -1,13 +1,16 @@
-import IAction from "context/interfaces/IAction";
-import IFileSystemState from "context/interfaces/IFileSystemState";
+import IAction from "./interfaces/IAction";
+import IFileSystemState from "./interfaces/IFileSystemState";
 
-function fileSystemReducer(state: IFileSystemState, action: IAction): IFileSystemState {
-	const args: [IFileSystemState, IAction] = [state, action];
+function fileSystemReducer(
+  state: IFileSystemState,
+  action: IAction
+): IFileSystemState {
+  const args: [IFileSystemState, IAction] = [state, action];
 
-	switch (action.type) {
-		default:
-			return state;
-	}
+  switch (action.type) {
+    default:
+      return state;
+  }
 }
 
 export default fileSystemReducer;

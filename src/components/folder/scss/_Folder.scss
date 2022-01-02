@@ -1,0 +1,22 @@
+.folder {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+
+	& > * {
+		margin-inline: 0.5rem;
+	}
+
+	&:hover {
+		background: lightblue;
+		cursor: pointer;
+	}
+
+	.folder-icon {
+		font-size: 2rem;
+	}
+
+	.folder-name {
+		margin: 0 0.5rem;
+	}
+}
