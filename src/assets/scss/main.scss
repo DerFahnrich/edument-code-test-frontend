@@ -4,6 +4,7 @@
 @import "./globalStyles.scss";
 
 /* scss files from components */
+@import "../../components/filepath-banner/scss/FilepathBanner";
 @import "../../components/render-current-folder-and-files/scss/RenderCurrentFolderAndFiles";
 @import "../../components/folder/scss/Folder";
 @import "../../components//file-item/scss/FileItem";

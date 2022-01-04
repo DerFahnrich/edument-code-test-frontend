@@ -1,5 +1,5 @@
 export default interface IFileSystemState {
-  currentFilePath: string;
+  currentFilePath?: string;
   currentLayerOfFilePaths?: string[];
   filepaths: string[];
 }

@@ -1,18 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 
-import { FileSystemContext } from "./context/FileSystemProvider";
-
-import Filepath from "./components/filepath-banner/Filepath";
+import FilepathBanner from "./components/filepath-banner/FilepathBanner";
 import FileSystemDisplay from "./components/file-system-display/FileSystemDisplay";
 
 const App = (): JSX.Element => {
-  const {
-    state: { currentFilePath },
-  } = useContext(FileSystemContext);
-
   return (
     <div className="App">
-      <Filepath filepath={currentFilePath} />
+      <FilepathBanner />
       <FileSystemDisplay />
     </div>
   );

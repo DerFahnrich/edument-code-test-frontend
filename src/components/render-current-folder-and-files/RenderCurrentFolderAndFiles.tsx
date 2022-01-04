@@ -2,7 +2,6 @@ import React from "react";
 
 import FileItem from "../file-item/FileItem";
 import Folder from "../folder/Folder";
-import useFileOperations from "../../hooks/useFileOperations";
 
 interface RenderCurrentFolderAndFilesProps {
   filepaths: string[];
@@ -11,7 +10,25 @@ interface RenderCurrentFolderAndFilesProps {
 const RenderCurrentFolderAndFiles = ({
   filepaths,
 }: RenderCurrentFolderAndFilesProps): JSX.Element => {
-  const { getCurrentLayerOfFoldersAndFiles } = useFileOperations();
+  /**
+   * Filters the layer of filepaths that we are currently on and removes all
+   * the duplicates so we have a clean list of the individual folders, and
+   * the seperate files of the content.
+   * @param paths
+   * @returns A list of the filtered folders and all the files of the current layer.
+   */
+  const getCurrentLayerOfFoldersAndFiles = (paths: string[]): string[] => {
+    return [
+      ...new Set(
+        paths.map((path) => {
+          if (path.includes("/")) {
+            return path.split("/").shift();
+          }
+          return path;
+        })
+      ),
+    ] as string[];
+  };
 
   /**
    * Takes the given filepaths parameter and renders a different type of JSX depending

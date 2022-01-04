@@ -5,10 +5,16 @@ interface UseStateWithHistoryReturnValue {
   pointer: number;
   back: () => void;
   forward: () => void;
-  go: (index: number) => void;
 }
 
-export default function useStateWithHistory(
+/**
+ * A hook that wraps the useState hook but adds the functionality to keep track of the
+ * history of all the changes and switch back and forth in the saved history array.
+ * @param defaultValue The default value to use in the useState hook.
+ * @param capcity The number of history edits they should be saved. Default value is 10.
+ * @returns An array with the different values and functions that the hooks supplies.
+ */
+function useStateWithHistory(
   defaultValue: string,
   { capacity = 10 } = {}
 ): [string, (newValue: string) => void, UseStateWithHistoryReturnValue] {
@@ -16,6 +22,12 @@ export default function useStateWithHistory(
   const historyRef = useRef([value]);
   const pointerRef = useRef(0);
 
+  /**
+   * A method that works the same was as a set function in a useState,
+   * but it also adds to the history array or modifies it.
+   * @param newValue
+   * @return void
+   */
   const set = useCallback(
     (newValue: string) => {
       if (historyRef.current[pointerRef.current] !== newValue) {
@@ -34,23 +46,25 @@ export default function useStateWithHistory(
     [capacity]
   );
 
-  const back = useCallback(() => {
+  /**
+   * Jumps back one slot in the history array and updates the value.
+   * @returns void
+   */
+  const back = () => {
     if (pointerRef.current <= 0) return;
     pointerRef.current -= 1;
     setValue(historyRef.current[pointerRef.current]);
-  }, []);
+  };
 
-  const forward = useCallback(() => {
+  /**
+   * Jumps forward one slot in the history array and updates the value.
+   * @returns void
+   */
+  const forward = () => {
     if (pointerRef.current >= historyRef.current.length - 1) return;
     pointerRef.current += 1;
     setValue(historyRef.current[pointerRef.current]);
-  }, []);
-
-  const go = useCallback((index: number) => {
-    if (index < 0 || index > historyRef.current.length - 1) return;
-    pointerRef.current = index;
-    setValue(historyRef.current[pointerRef.current]);
-  }, []);
+  };
 
   return [
     value,
@@ -60,7 +74,8 @@ export default function useStateWithHistory(
       pointer: pointerRef.current,
       back,
       forward,
-      go,
     },
   ];
 }
+
+export default useStateWithHistory;

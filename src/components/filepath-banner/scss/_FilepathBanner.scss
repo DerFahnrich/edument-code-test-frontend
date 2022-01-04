@@ -1,0 +1,26 @@
+.filepath {
+  display: flex;
+  align-items: center;
+
+  & > * {
+    margin-inline: 0.5rem;
+  }
+
+  .icon {
+    font-size: 2rem;
+
+    &:hover {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    &:active {
+      opacity: 0.8;
+    }
+  }
+
+  .path,
+  .path-prefix {
+    font-size: 2rem;
+  }
+}
