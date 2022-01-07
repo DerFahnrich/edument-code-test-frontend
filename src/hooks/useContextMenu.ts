@@ -11,7 +11,7 @@ interface IUseContextMenuReturnType {
 
 function useContextMenu<T extends HTMLElement = HTMLElement>(
   element: RefObject<T>,
-  callback: () => void
+  callback?: () => void
 ): IUseContextMenuReturnType {
   const [xPos, setXPos] = useState("0px");
   const [yPos, setYPos] = useState("0px");
@@ -19,6 +19,8 @@ function useContextMenu<T extends HTMLElement = HTMLElement>(
 
   const handleContextMenu = (e: MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
+
     const target = e.target as HTMLElement;
     const parent = target.parentElement;
     const classList = parent?.classList;
@@ -29,7 +31,9 @@ function useContextMenu<T extends HTMLElement = HTMLElement>(
       setShowMenu(true);
     }
 
-    callback();
+    if (callback) {
+      callback();
+    }
   };
 
   const closeMenu = () => {

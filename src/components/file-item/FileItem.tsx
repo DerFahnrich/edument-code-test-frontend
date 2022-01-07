@@ -30,16 +30,7 @@ const FileItem = ({ fileName }: IFileItemProps): JSX.Element => {
     dispatch,
   } = useContext(FileSystemContext);
 
-  const contextMenuHandler = useCallback(() => {
-    // console.log("In contextHandler");
-    console.log("currentFilePath: ", currentFilePath);
-    console.log("currentLayerOfFilePaths: ", currentLayerOfFilePaths);
-  }, [currentFilePath, currentLayerOfFilePaths]);
-
-  const { showMenu, xPos, yPos, closeMenu } = useContextMenu(
-    fileItem,
-    contextMenuHandler
-  );
+  const { showMenu, xPos, yPos, closeMenu } = useContextMenu(fileItem);
 
   const displayFileStyle = useMemo(() => {
     switch (display) {
@@ -89,6 +80,7 @@ const FileItem = ({ fileName }: IFileItemProps): JSX.Element => {
           yPos={yPos}
           close={closeMenu}
           toggleRename={toggleEditMode}
+          contextMenuType="FILE"
         />
       )}
     </div>

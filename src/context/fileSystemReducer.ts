@@ -6,6 +6,7 @@ import {
   SET_CURRENT_LAYER_OF_FILE_PATHS,
   SET_DISPLAY_VALUE,
   UPDATE_FILE_NAME,
+  UPDATE_FOLDER_NAME,
 } from "./fileSystemActions";
 
 function fileSystemReducer(
@@ -23,6 +24,8 @@ function fileSystemReducer(
       return setDisplayValue(...args);
     case UPDATE_FILE_NAME:
       return updateFileName(...args);
+    case UPDATE_FOLDER_NAME:
+      return updateFolderName(...args);
     default:
       return state;
   }
@@ -59,6 +62,7 @@ function updateFileName(
     oldFileName,
     newFileName,
   }: { oldFileName: string; newFileName: string } = action.payload;
+  // Create a copy of the state.filepaths to manipulate.
   const filePathsCopy = [...state.filepaths];
 
   // Get the filepath that will be renamed from the filepaths.
@@ -104,4 +108,37 @@ function updateFileName(
   }
 
   return { ...state, filepaths: filePathsCopy };
+}
+
+function updateFolderName(
+  state: IFileSystemState,
+  action: IAction
+): IFileSystemState {
+  const {
+    oldFolderName,
+    newFolderName,
+  }: { oldFolderName: string; newFolderName: string } = action.payload;
+  // Create a copy of the state.filepaths to manipulate.
+  let filepathsCopy = [...state.filepaths];
+
+  // Find all the filepaths containing the old folder name with the trailing
+  // slash included ("dc/" for example)
+  let filepathsToRename = filepathsCopy.filter((filepath) =>
+    filepath.includes(`${oldFolderName}/`)
+  );
+
+  // Replace the old folder name with the new folder name in all filepaths.
+  filepathsToRename = filepathsToRename.map((filepath) =>
+    filepath.replace(`${oldFolderName}/`, `${newFolderName}/`)
+  );
+
+  // Remove all the filepaths containg the old folder name with the trailing slash.
+  filepathsCopy = filepathsCopy.filter(
+    (filepath) => !filepath.includes(`${oldFolderName}/`)
+  );
+
+  // Add the renamed filepaths to filepathsCopy.
+  filepathsCopy.push(...filepathsToRename);
+
+  return { ...state, filepaths: filepathsCopy };
 }

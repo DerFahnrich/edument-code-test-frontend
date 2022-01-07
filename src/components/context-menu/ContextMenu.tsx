@@ -1,14 +1,18 @@
 /* eslint-disable react/require-default-props */
 
 import React, { useRef } from "react";
+
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import IMenuChoice from "./interfaces/IMenuChoice";
+
+import { TContexMenuType } from "./types/TContextMenuType";
 
 interface ContextMenuProps {
   xPos: string;
   yPos: string;
   close: () => void;
   toggleRename?: () => void;
+  contextMenuType: TContexMenuType;
 }
 
 const ContextMenu = ({
@@ -16,13 +20,13 @@ const ContextMenu = ({
   yPos,
   close,
   toggleRename,
+  contextMenuType,
 }: ContextMenuProps): JSX.Element => {
   const contextMenu = useRef(null);
 
   useOnClickOutside(contextMenu, close);
 
   const changeName = () => {
-    console.log("changeName");
     if (toggleRename) {
       toggleRename();
       close();
@@ -52,13 +56,25 @@ const ContextMenu = ({
     { text: "Ny Fil", callback: newFile },
   ];
 
+  let menuChoices: IMenuChoice[];
+
+  switch (contextMenuType) {
+    case "FILE":
+    case "FOLDER":
+      menuChoices = contextMenuFolderFileChoices;
+      break;
+    default:
+      menuChoices = contextMenuOtherChoices;
+      break;
+  }
+
   return (
     <div
       className="context-menu"
       ref={contextMenu}
       style={{ top: yPos, left: xPos }}
     >
-      {contextMenuFolderFileChoices.map((menuChoice) => (
+      {menuChoices.map((menuChoice) => (
         <span
           aria-hidden="true"
           className="menu-choice"

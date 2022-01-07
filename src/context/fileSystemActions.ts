@@ -7,6 +7,7 @@ export const SET_CURRENT_LAYER_OF_FILE_PATHS =
   "SET_CURRENT_LAYER_OF_FILE_PATHS";
 export const SET_DISPLAY_VALUE = "SET_DISPLAY_VALUE";
 export const UPDATE_FILE_NAME = "UPDATE_FILE_NAME";
+export const UPDATE_FOLDER_NAME = "UPDATE_FOLDER_NAME";
 
 /* #### Action creators #### */
 export const setCurrentFilepath = (currentFilepath: string): IAction => {
@@ -31,4 +32,14 @@ export const updateFileName = (
   newFileName: string
 ): IAction => {
   return { type: UPDATE_FILE_NAME, payload: { oldFileName, newFileName } };
+};
+
+export const updateFolderName = (
+  oldFolderName: string,
+  newFolderName: string
+): IAction => {
+  return {
+    type: UPDATE_FOLDER_NAME,
+    payload: { oldFolderName, newFolderName },
+  };
 };
