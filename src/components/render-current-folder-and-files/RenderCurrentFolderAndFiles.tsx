@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext, useMemo, useRef } from "react";
 
 import FileItem from "../file-item/FileItem";
 import Folder from "../folder/Folder";
+
+import { FileSystemContext } from "../../context/FileSystemProvider";
 
 interface RenderCurrentFolderAndFilesProps {
   filepaths: string[];
@@ -10,6 +12,23 @@ interface RenderCurrentFolderAndFilesProps {
 const RenderCurrentFolderAndFiles = ({
   filepaths,
 }: RenderCurrentFolderAndFilesProps): JSX.Element => {
+  const thisDiv = useRef<HTMLDivElement>(null);
+
+  const {
+    state: { display },
+  } = useContext(FileSystemContext);
+
+  const displayStyle = useMemo(() => {
+    switch (display) {
+      case "ICONS":
+        return "display-icons";
+      case "LIST":
+        return "display-list";
+      default:
+        return "display-icons";
+    }
+  }, [display]);
+
   /**
    * Filters the layer of filepaths that we are currently on and removes all
    * the duplicates so we have a clean list of the individual folders, and
@@ -42,7 +61,7 @@ const RenderCurrentFolderAndFiles = ({
 
     return currentLayerOfFoldersAndFiles.map((currentItem): JSX.Element => {
       if (currentItem.includes(".")) {
-        return <FileItem key={currentItem} name={currentItem} />;
+        return <FileItem key={currentItem} fileName={currentItem} />;
       }
 
       const folderContent = paths.filter((path) =>
@@ -60,7 +79,10 @@ const RenderCurrentFolderAndFiles = ({
   };
 
   return (
-    <div className="render-current-folders-and-files">
+    <div
+      className={`render-current-folders-and-files ${displayStyle}`}
+      ref={thisDiv}
+    >
       {renderCurrentFoldersAndFiles(filepaths)}
     </div>
   );

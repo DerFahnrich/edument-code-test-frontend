@@ -1,22 +1,39 @@
-.folder {
-	align-items: center;
-	display: flex;
-	justify-content: center;
+.folder.display-icons {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 
-	& > * {
-		margin-inline: 0.5rem;
-	}
+  & > * {
+    margin-inline: 0.5rem;
+  }
 
-	&:hover {
-		background: lightblue;
-		cursor: pointer;
-	}
+  .icon {
+    font-size: 4rem;
+  }
 
-	.folder-icon {
-		font-size: 2rem;
-	}
+  .name {
+    margin: 0 0.5rem;
+  }
+}
 
-	.folder-name {
-		margin: 0 0.5rem;
-	}
+.folder.display-list {
+  align-items: center;
+  display: flex;
+
+  & > * {
+    margin-inline: 0.5rem;
+  }
+
+  .name {
+    margin: 0.1rem 0;
+  }
+}
+
+.folder.display-icons,
+.folder.display-list {
+  &:hover {
+    background: lightblue;
+    cursor: pointer;
+  }
 }

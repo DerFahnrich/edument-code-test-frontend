@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import useFolderOperations from "../../hooks/useFolderOperations";
 
 import { FileSystemContext } from "../../context/FileSystemProvider";
@@ -16,9 +16,20 @@ const Folder = ({ folderContent, folderName }: IFolderProps): JSX.Element => {
   const { openFolderAndMakeContentAccessible } = useFolderOperations();
 
   const {
-    state: { currentFilePath },
+    state: { currentFilePath, display },
     dispatch,
   } = useContext(FileSystemContext);
+
+  const displayFolderStyle = useMemo(() => {
+    switch (display) {
+      case "ICONS":
+        return "folder display-icons";
+      case "LIST":
+        return "folder display-list";
+      default:
+        return "folder display-icons";
+    }
+  }, [display]);
 
   /**
    * "Opens" the folder you just clicked on and executes the necessary code
@@ -41,13 +52,13 @@ const Folder = ({ folderContent, folderName }: IFolderProps): JSX.Element => {
   return (
     <div
       aria-hidden="true"
-      className="folder"
+      className={displayFolderStyle}
       onClick={handleOnClick}
       role="button"
       tabIndex={0}
     >
-      <span className="folder-icon">📁</span>
-      <h2 className="folder-name">{folderName}</h2>
+      <span className="icon">📁</span>
+      <h2 className="name">{folderName}</h2>
     </div>
   );
 };

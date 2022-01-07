@@ -10,6 +10,7 @@ export const FileSystemContext = createContext<IFileSystemContext>(
 
 const FileSystemProvider = ({ children }: IContext): JSX.Element => {
   const [state, dispatch] = useReducer(fileSystemReducer, {
+    display: "ICONS",
     filepaths: [
       "marvel/black_widow/bw.png",
       "marvel/drdoom/the-doctor.png",
@@ -20,6 +21,11 @@ const FileSystemProvider = ({ children }: IContext): JSX.Element => {
       "marvel/marvel_logo.png",
       "dc/character_list.txt",
     ],
+    contextMenu: {
+      showMenu: false,
+      xPos: "0px",
+      yPos: "0px",
+    },
   });
 
   const values = {

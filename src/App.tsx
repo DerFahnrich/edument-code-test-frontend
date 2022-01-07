@@ -1,5 +1,4 @@
 import React from "react";
-
 import FilepathBanner from "./components/filepath-banner/FilepathBanner";
 import FileSystemDisplay from "./components/file-system-display/FileSystemDisplay";
 

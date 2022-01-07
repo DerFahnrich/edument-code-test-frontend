@@ -1,6 +1,9 @@
 import React, { useContext, useEffect, useMemo } from "react";
+
+import DisplayTypeDropdown from "../display-type/DisplayTypeDropdown";
 import useStateWithHistory from "../../hooks/useStateWithHistory";
 import useFolderOperations from "../../hooks/useFolderOperations";
+
 import { FileSystemContext } from "../../context/FileSystemProvider";
 
 import {
@@ -11,7 +14,7 @@ import {
 const FilepathBanner = (): JSX.Element => {
   const { openFolderAndMakeContentAccessible } = useFolderOperations();
   const {
-    state: { filepaths, currentFilePath },
+    state: { filepaths, currentFilePath, display },
     dispatch,
   } = useContext(FileSystemContext);
 
@@ -75,6 +78,7 @@ const FilepathBanner = (): JSX.Element => {
 
   return (
     <nav className="filepath">
+      <DisplayTypeDropdown />
       <span
         aria-hidden="true"
         className="icon"

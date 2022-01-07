@@ -1,8 +1,17 @@
-.render-current-folders-and-files {
-	display: flex;
-	flex-wrap: wrap;
+.render-current-folders-and-files.display-icons,
+.render-current-folders-and-files.display-list {
+  display: flex;
+}
 
-	& > * {
-		margin-inline: 1rem;
-	}
+.render-current-folders-and-files.display-icons {
+  align-items: center;
+  flex-wrap: wrap;
+
+  & > * {
+    margin-inline: 1rem;
+  }
+}
+
+.render-current-folders-and-files.display-list {
+  flex-direction: column;
 }

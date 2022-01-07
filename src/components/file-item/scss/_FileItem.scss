@@ -1,6 +1,17 @@
-.file-item {
-	&:hover {
-		background: lightblue;
-		cursor: pointer;
-	}
+.file.display-icons,
+.file.display-list {
+  &:hover {
+    background: lightblue;
+    cursor: pointer;
+  }
+}
+
+.file.display-list {
+  margin: 0.1rem 0.5rem;
+}
+
+.file {
+  h2 {
+    margin: 0;
+  }
 }
