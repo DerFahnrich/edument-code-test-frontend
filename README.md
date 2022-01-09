@@ -6,4 +6,10 @@ The assignement is purely frontend written in react and typescript. The bundling
 
 ![Screenshot](screenshot.png)
 
-Functionality that is available  in the application:
+Functionality that is available in the application:
+
+### Change view style.
+The dropdown in the upper right corner gives you to display options. As icons or as a list.
+
+### Filapath
+Next to the dropdown in the upper right corner is the filepath. The filepath is updating depending on which folder you're currently in. 
