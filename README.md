@@ -23,3 +23,6 @@ By right clicking somewhere inside the application (not on a folder or file), a 
 
 ### Remove and rename folders and file.'
 By right clicking on a folder and file you will se a context menu with two other options. To remove or rename. By clicking on rename the text underneath the folder or file will be changed to an input and you can type in your new name there. By clicking on remove the folder or file will simply be removed.
+
+![Screenshot](screenshot-remove-rename.png)
+
