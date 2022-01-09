@@ -28,5 +28,4 @@ By right clicking on a folder and file you will se a context menu with two other
 
 ![Screenshot](screenshot-remove-rename.png)
 ![Screenshot](screenshow-deeper-down.png)
-
-
+![Screenshot](screenshot-list-view.png)
