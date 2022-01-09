@@ -43,8 +43,8 @@ const Folder = ({ folderContent, folderName }: IFolderProps): JSX.Element => {
    * This method is invoked when the contextMenu is opened.
    */
   const contexMenuCallback = useCallback(() => {
-    const allFilePathContaingThisFolder = filepaths.filter((filepath) =>
-      filepath.includes(`${value}/`)
+    const allFilePathContaingThisFolder = filepaths.filter(
+      (filepath) => filepath.includes(`${value}/`) || filepath.endsWith(value)
     );
 
     dispatch(setFolderToRemove(allFilePathContaingThisFolder));

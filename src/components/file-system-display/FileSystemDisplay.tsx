@@ -12,14 +12,7 @@ const FileSystemDisplay = (): JSX.Element => {
     state: { filepaths, currentLayerOfFilePaths },
   } = useContext(FileSystemContext);
 
-  const contextMenuCallback = () => {
-    console.log("ContextMenu");
-  };
-
-  const { showMenu, xPos, yPos, closeMenu } = useContextMenu(
-    fileSystemWindow,
-    contextMenuCallback
-  );
+  const { showMenu, xPos, yPos, closeMenu } = useContextMenu(fileSystemWindow);
 
   return (
     <div className="file-system-overview" ref={fileSystemWindow}>

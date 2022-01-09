@@ -6,13 +6,14 @@ import useOnClickOutside from "../../hooks/useOnClickOutside";
 import IMenuChoice from "./interfaces/IMenuChoice";
 
 import { FileSystemContext } from "../../context/FileSystemProvider";
+import { TContexMenuType } from "./types/TContextMenuType";
+
 import {
   removeFolder,
   removeFile,
   createNewFile,
   createNewFolder,
 } from "../../context/fileSystemActions";
-import { TContexMenuType } from "./types/TContextMenuType";
 
 interface ContextMenuProps {
   xPos: string;

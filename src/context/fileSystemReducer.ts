@@ -305,25 +305,53 @@ function updateFolderName(
   }: { oldFolderName: string; newFolderName: string } = action.payload;
   // Create a copy of the state.filepaths to manipulate.
   let filepathsCopy = [...state.filepaths];
+  let currentLayerOfFilePathsCopy = state.currentLayerOfFilePaths
+    ? [...state.currentLayerOfFilePaths]
+    : undefined;
 
-  // Find all the filepaths containing the old folder name with the trailing
-  // slash included ("dc/" for example)
+  // Find all the filepaths in filepathsCopy containing the old folder name with the trailing
+  // slash included if they have any content ("dc/" for example), otherwise
+  // just all filepaths that ends with the old folder name.
   let filepathsToRename = filepathsCopy.filter(
     (filepath) =>
       filepath.includes(`${oldFolderName}/`) || filepath.endsWith(oldFolderName)
   );
 
-  // Replace the old folder name with the new folder name in all filepaths.
+  // Replace the old folder name with the new folder name in all filepaths that
+  // has content.
   filepathsToRename = filepathsToRename.map((filepath) =>
     filepath.replace(`${oldFolderName}/`, `${newFolderName}/`)
   );
 
+  // Replace the old folder name with the new folder name in all filepaths that
+  // ends with the old folder name.
   const regex = new RegExp(`${oldFolderName}$`);
   filepathsToRename = filepathsToRename.map((filepath) =>
     filepath.replace(regex, newFolderName)
   );
 
-  // Remove all the filepaths containg the old folder name with the trailing slash.
+  // The same procedure for currentLayerOfFilePathsCopy.
+  let currentLayerOfFilePathsToRename: string[] = [];
+
+  if (currentLayerOfFilePathsCopy) {
+    currentLayerOfFilePathsToRename = currentLayerOfFilePathsCopy.filter(
+      (filepath) =>
+        filepath.includes(`${oldFolderName}/`) ||
+        filepath.endsWith(oldFolderName)
+    );
+
+    currentLayerOfFilePathsToRename = currentLayerOfFilePathsToRename.map(
+      (filepath) => filepath.replace(`${oldFolderName}/`, `${newFolderName}/`)
+    );
+
+    const regexForCurrentLayer = new RegExp(`${oldFolderName}$`);
+    currentLayerOfFilePathsToRename = currentLayerOfFilePathsToRename.map(
+      (filepath) => filepath.replace(regexForCurrentLayer, newFolderName)
+    );
+  }
+
+  // Remove all the filepaths containg the old folder name with the trailing slash
+  // and the filepaths that end in the old folder name.
   filepathsCopy = filepathsCopy.filter(
     (filepath) => !filepath.includes(`${oldFolderName}/`)
   );
@@ -332,10 +360,29 @@ function updateFolderName(
     (filepath) => !filepath.endsWith(oldFolderName)
   );
 
-  // Add the renamed filepaths to filepathsCopy.
+  // The same procedure for currentLayerOfFilePathsCopy.
+  if (currentLayerOfFilePathsCopy) {
+    currentLayerOfFilePathsCopy = currentLayerOfFilePathsCopy.filter(
+      (filepath) => !filepath.includes(`${oldFolderName}/`)
+    );
+
+    currentLayerOfFilePathsCopy = currentLayerOfFilePathsCopy.filter(
+      (filepath) => !filepath.endsWith(oldFolderName)
+    );
+  }
+
+  // Add the renamed filepaths to filepathsCopy and currentLayerOfFilePathsCopy.
   filepathsCopy.push(...filepathsToRename);
 
-  return { ...state, filepaths: filepathsCopy };
+  if (currentLayerOfFilePathsCopy) {
+    currentLayerOfFilePathsCopy.push(...currentLayerOfFilePathsToRename);
+  }
+
+  return {
+    ...state,
+    filepaths: filepathsCopy,
+    currentLayerOfFilePaths: currentLayerOfFilePathsCopy,
+  };
 }
 
 /* ########## Helper functions ########## */
