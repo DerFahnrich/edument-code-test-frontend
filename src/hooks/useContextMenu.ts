@@ -21,15 +21,9 @@ function useContextMenu<T extends HTMLElement = HTMLElement>(
     e.preventDefault();
     e.stopPropagation();
 
-    const target = e.target as HTMLElement;
-    const parent = target.parentElement;
-    const classList = parent?.classList;
-
-    if (classList?.contains("folder") || classList?.contains("file")) {
-      setXPos(`${e.pageX}px`);
-      setYPos(`${e.pageY}px`);
-      setShowMenu(true);
-    }
+    setXPos(`${e.pageX}px`);
+    setYPos(`${e.pageY}px`);
+    setShowMenu(true);
 
     if (callback) {
       callback();

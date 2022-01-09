@@ -1,11 +1,17 @@
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 html {
-	font-size: 0.625rem;
+  font-size: 0.625rem;
+}
+
+body {
+  background: $primary-background-color;
+  padding: 4rem;
 }
 
 p {
-	margin: 0;
+  margin: 0;
 }

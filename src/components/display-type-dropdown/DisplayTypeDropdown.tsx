@@ -13,7 +13,7 @@ const DisplayTypeDropdown = (): JSX.Element => {
   };
 
   return (
-    <select onChange={handleOnChange}>
+    <select className="dropdown" onChange={handleOnChange}>
       {displayTypes.map((type) => (
         <option key={type} value={type}>
           {type.split("").slice(0, 1).join("") +

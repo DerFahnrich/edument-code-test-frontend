@@ -7,6 +7,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "material-icons": "^1.10.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

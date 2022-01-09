@@ -1,4 +1,11 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import useFolderOperations from "../../hooks/useFolderOperations";
 import useContextMenu from "../../hooks/useContextMenu";
@@ -10,6 +17,7 @@ import { FileSystemContext } from "../../context/FileSystemProvider";
 import {
   setCurrentFilepath,
   setCurrentLayerOfFilepaths,
+  setFolderToRemove,
   updateFolderName,
 } from "../../context/fileSystemActions";
 
@@ -26,15 +34,26 @@ const Folder = ({ folderContent, folderName }: IFolderProps): JSX.Element => {
   const currentFolderName = useRef(folderName);
   const input = useRef<HTMLInputElement | null>(null);
 
-  const { showMenu, xPos, yPos, closeMenu } = useContextMenu(
-    folder
-    // contextMenuHandler
-  );
-
   const {
-    state: { currentFilePath, display },
+    state: { filepaths, currentFilePath, display },
     dispatch,
   } = useContext(FileSystemContext);
+
+  /**
+   * This method is invoked when the contextMenu is opened.
+   */
+  const contexMenuCallback = useCallback(() => {
+    const allFilePathContaingThisFolder = filepaths.filter((filepath) =>
+      filepath.includes(`${value}/`)
+    );
+
+    dispatch(setFolderToRemove(allFilePathContaingThisFolder));
+  }, [dispatch, filepaths, value]);
+
+  const { showMenu, xPos, yPos, closeMenu } = useContextMenu(
+    folder,
+    contexMenuCallback
+  );
 
   const displayFolderStyle = useMemo(() => {
     switch (display) {
@@ -53,6 +72,11 @@ const Folder = ({ folderContent, folderName }: IFolderProps): JSX.Element => {
       input.current?.select();
     }
   }, [editMode]);
+
+  const resetData = () => {
+    setValue(currentFolderName.current);
+    toggleEditMode();
+  };
 
   /**
    * "Opens" the folder you just clicked on and executes the necessary code
@@ -84,6 +108,14 @@ const Folder = ({ folderContent, folderName }: IFolderProps): JSX.Element => {
     setValue(e.target.value);
   };
 
+  const handleOnKeyUp: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (e.target === input.current) {
+      if (e.code === "Escape") {
+        resetData();
+      }
+    }
+  };
+
   return (
     <div
       aria-hidden="true"
@@ -93,13 +125,14 @@ const Folder = ({ folderContent, folderName }: IFolderProps): JSX.Element => {
       tabIndex={0}
       ref={folder}
     >
-      <span className="icon">📁</span>
+      <span className=" icon material-icons">folder</span>
       {editMode ? (
         <form onSubmit={handleOnSubmit}>
           <input
             type="text"
             value={value}
             onChange={handleOnChange}
+            onKeyUp={handleOnKeyUp}
             ref={input}
           />
         </form>

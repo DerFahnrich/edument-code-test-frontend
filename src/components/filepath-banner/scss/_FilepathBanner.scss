@@ -1,13 +1,18 @@
 .filepath {
-  display: flex;
   align-items: center;
+  background: $secondary-background-color;
+  border-radius: 10px;
+  display: flex;
+  margin-bottom: 2rem;
+  padding: 2rem 4rem;
 
   & > * {
     margin-inline: 0.5rem;
   }
 
   .icon {
-    font-size: 2rem;
+    font-size: 4rem;
+    color: $tertiary-color;
 
     &:hover {
       cursor: pointer;

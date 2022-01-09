@@ -1,4 +1,5 @@
 /* Varibles */
+@import "./variables/colors";
 
 /* Global styles*/
 @import "./globalStyles.scss";
@@ -7,5 +8,7 @@
 @import "../../components/filepath-banner/scss/FilepathBanner";
 @import "../../components/render-current-folder-and-files/scss/RenderCurrentFolderAndFiles";
 @import "../../components/folder/scss/Folder";
-@import "../../components//file-item/scss/FileItem";
-@import "../../components/context-menu/scss/ContextMenu.scss";
+@import "../../components/file-item/scss/FileItem";
+@import "../../components/context-menu/scss/ContextMenu";
+@import "../../components/file-system-display/scss/FileSystemDisplay";
+@import "../../components/display-type-dropdown/scss/DisplayTypeDropdown.scss";
