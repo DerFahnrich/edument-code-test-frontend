@@ -13,6 +13,8 @@ The dropdown in the upper right corner gives you to display options. As icons or
 
 ![Screenshot](screenshot-navigator.png)
 
-### Filapath
+### Filepath
 Next to the dropdown in the upper right corner is the filepath. The filepath is updating depending on which folder you're currently in. The arrows between the dropwdown and filepath is the history navigator. You can move back and forth in your browsing history.
 
+### Create new folders and files.
+By right clicking somewhere inside the application (not on a folder or file), a context menu will be shown that gives you two choices. Create a new file or a new folder. By clicking on ons of those a ned folder or a new file will be created in the folder you are currently in.
