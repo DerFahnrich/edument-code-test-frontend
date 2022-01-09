@@ -11,5 +11,8 @@ Functionality that is available in the application:
 ### Change view style.
 The dropdown in the upper right corner gives you to display options. As icons or as a list.
 
+![Screenshot](screenshot-navigator.png)
+
 ### Filapath
-Next to the dropdown in the upper right corner is the filepath. The filepath is updating depending on which folder you're currently in. 
+Next to the dropdown in the upper right corner is the filepath. The filepath is updating depending on which folder you're currently in. The arrows between the dropwdown and filepath is the history navigator. You can move back and forth in your browsing history.
+
