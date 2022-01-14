@@ -1,6 +1,6 @@
 # File System written in react and typescript
 
-A try to complete a code test given to me by Edument. The goal of the assignment was to create a file system that can display folders and files, and inside folders you should be able to create new folders and files.
+A try to complete a code test given to me. The goal of the assignment was to create a file system that can display folders and files, and inside folders you should be able to create new folders and files.
 
 The assignement is purely frontend, written in react and typescript. The bundling is taken care of vite instead of webpack. My focus on this assignment has been on the logic, although it has some sass for a basic visualization most of my time has been focusing on writing code.
 
